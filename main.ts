@@ -1,11 +1,26 @@
-import { copyFileSync, existsSync } from 'node:fs';
+/**
+ * 23 November 2026 World News Infographic Dispatch Entrypoint
+ *
+ * Competition: news-image-20261123
+ * Deliverable: Dispatches the generated entry.png infographic to the destination directory.
+ */
+
+import { copyFileSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-// World News Digest — Monday 23 November 2026
-// Verified 1024x1024 vector infographic submission for make.fun daily bounty
-const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
-const targetFile = join(outDir, 'entry.png');
-const sourceFile = new URL('./entry.png', import.meta.url);
+const outputDir: string = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+const sourceImage: URL = new URL('./entry.png', import.meta.url);
+const destImage: string = join(outputDir, 'entry.png');
 
-copyFileSync(sourceFile, targetFile);
-console.log('Successfully written news image entry to:', targetFile);
+console.log(`[Dispatch] Source image: ${sourceImage.href}`);
+console.log(`[Dispatch] Destination directory: ${outputDir}`);
+
+if (!existsSync(sourceImage)) {
+  console.error(`[Dispatch Error] Source image not found: ${sourceImage.href}`);
+  process.exit(1);
+}
+
+copyFileSync(sourceImage, destImage);
+
+const stats = statSync(destImage);
+console.log(`[Dispatch Success] Copied entry.png to ${destImage} (${stats.size} bytes)`);
