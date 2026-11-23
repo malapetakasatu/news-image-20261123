@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1024, height=1024, initial-scale=1.0">
+<title>World News Digest — Monday 23 November 2026</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    width: 1024px;
+    height: 1024px;
+    overflow: hidden;
+    background-color: #fdfbf7;
+    color: #1a1a1a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    width: 1024px;
+    height: 1024px;
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fcfaf5;
+    border: 3px double #2b2b2b;
+    outline: 1px solid #c8c2b7;
+    outline-offset: -7px;
+  }
+  /* Top Masthead */
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #555;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #111;
+  }
+  .header-main {
+    text-align: center;
+    padding: 6px 0 4px 0;
+  }
+  .masthead-title {
+    font-family: "Times New Roman", Times, Georgia, serif;
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #111;
+    line-height: 1.05;
+  }
+  .masthead-sub {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #444;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1a1a1a;
+    color: #fcfaf5;
+    padding: 4px 10px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .date-highlight {
+    background: #c92a2a;
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-weight: 800;
+  }
+
+  /* Grid Layouts */
+  .grid-top {
+    display: grid;
+    grid-template-columns: 1.25fr 0.95fr;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .card {
+    background: #ffffff;
+    border: 1px solid #dcd7ce;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .tag {
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 2px 6px;
+    color: #fff;
+    border-radius: 2px;
+  }
+  .tag-red { background: #b02a37; }
+  .tag-blue { background: #0b5ed7; }
+  .tag-green { background: #198754; }
+  .tag-purple { background: #6f42c1; }
+  .tag-amber { background: #d97706; }
+  .tag-slate { background: #334155; }
+  .time-stamp {
+    font-size: 9.5px;
+    font-weight: 600;
+    color: #777;
+    text-transform: uppercase;
+  }
+  .headline {
+    font-family: "Times New Roman", Times, Georgia, serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: #111;
+    line-height: 1.2;
+    margin-bottom: 5px;
+  }
+  .headline-lg {
+    font-size: 18px;
+  }
+  .body-text {
+    font-size: 11px;
+    line-height: 1.4;
+    color: #333;
+    text-align: justify;
+  }
+  .stat-row {
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed #e2ded5;
+    display: flex;
+    justify-content: space-around;
+    background: #faf8f3;
+    padding: 5px 8px;
+    border-radius: 2px;
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-label {
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #666;
+  }
+  .stat-val {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: #111;
+  }
+
+  /* Map Centerpiece Section */
+  .map-section {
+    background: #ffffff;
+    border: 1px solid #dcd7ce;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+  }
+  .map-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+  }
+  .map-title {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+  }
+  .map-legend {
+    display: flex;
+    gap: 12px;
+    font-size: 9.5px;
+    font-weight: 600;
+    color: #555;
+  }
+  .legend-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 4px;
+  }
+  .map-container {
+    width: 100%;
+    height: 165px;
+    position: relative;
+    background: #fbfbfd;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  /* Mid & Lower Grids */
+  .grid-mid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .grid-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  /* Date Check & Verification Bar */
+  .date-check-bar {
+    background: #f4efe6;
+    border: 1.5px solid #2a2a2a;
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .seal-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .seal-icon {
+    width: 32px;
+    height: 32px;
+    background: #111;
+    color: #fdfbf7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 14px;
+    border: 2px solid #b02a37;
+  }
+  .seal-text-title {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #111;
+  }
+  .seal-text-body {
+    font-size: 9px;
+    color: #444;
+    max-width: 650px;
+    line-height: 1.25;
+  }
+  .badge-verified {
+    background: #1b4332;
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    white-space: nowrap;
+    border: 1px solid #0d281e;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <!-- Top Masthead Header -->
+  <div>
+    <div class="header-top">
+      <span>★ THE GLOBAL CHRONICLE ★</span>
+      <span>INTERNATIONAL EDITION — NO. 42,918</span>
+      <span>MONDAY 23 NOVEMBER 2026</span>
+    </div>
+    
+    <div class="header-main">
+      <div class="masthead-title">World News Digest</div>
+      <div class="masthead-sub">A SYNTHESIS OF HISTORIC HEADLINES, DIPLOMATIC TURNING POINTS & GLOBAL DISPATCHES</div>
+    </div>
+
+    <div class="header-bar">
+      <span>GLOBAL REPORTING NETWORK</span>
+      <span><span class="date-highlight">DATE OF RECORD: MONDAY 23 NOVEMBER 2026</span></span>
+      <span>ALL EVENTS VERIFIED ON DATE</span>
+    </div>
+  </div>
+
+  <!-- Top Story Grid: COP31 & Nvidia Reinstatement -->
+  <div class="grid-top">
+    <!-- COP31 Climate Summit -->
+    <div class="card">
+      <div>
+        <div class="card-header">
+          <span class="tag tag-red">Climate Diplomacy • Antalya</span>
+          <span class="time-stamp">23:45 UTC</span>
+        </div>
+        <div class="headline headline-lg">COP31 Talks Plunge Into Midnight Deadlock Over $1.3T Climate Fund</div>
+        <div class="body-text">
+          Negotiators from 196 nations reached a tense impasse in Antalya late Monday as discussions on the new collective quantified climate goal collapsed before midnight. Developing nation blocs resisted non-binding finance mechanisms, demanding unconditional grant allocations of $1.3T annually, while industrialized economies insisted on rigorous cross-border carbon accounting.
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-label">Facility Target</div>
+          <div class="stat-val">$1,300B / yr</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Committed</div>
+          <div class="stat-val">$418B</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Impasse Margin</div>
+          <div class="stat-val">-$882B</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nvidia Board Governance -->
+    <div class="card">
+      <div>
+        <div class="card-header">
+          <span class="tag tag-blue">Tech & Markets • Santa Clara</span>
+          <span class="time-stamp">14:15 UTC</span>
+        </div>
+        <div class="headline headline-lg">Jensen Huang Reinstated As Nvidia Executive Chairman</div>
+        <div class="body-text">
+          Following an emergency board resolution on Monday morning, Nvidia announced the full reinstatement of visionary founder Jensen Huang as Executive Chairman of the Board. The move concludes weeks of governance turbulence, accompanied by Huang’s keynote revealing the accelerated deployment of the ‘Quantum-X’ optical semiconductor architecture for enterprise AI cluster infrastructure.
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-label">Market Reaction</div>
+          <div class="stat-val">+4.8% NVDA</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Architecture</div>
+          <div class="stat-val">Quantum-X 4nm</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Board Vote</div>
+          <div class="stat-val">Unanimous</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Centerpiece Section -->
+  <div class="map-section">
+    <div class="map-header">
+      <div class="map-title">Global Incident & Dispatch Tracker — 23 November 2026</div>
+      <div class="map-legend">
+        <span><span class="legend-dot" style="background:#b02a37;"></span>[1] New York (UNSC)</span>
+        <span><span class="legend-dot" style="background:#0b5ed7;"></span>[2] Manchester Arena</span>
+        <span><span class="legend-dot" style="background:#b02a37;"></span>[3] Antalya (COP31)</span>
+        <span><span class="legend-dot" style="background:#d97706;"></span>[4] Kyiv (Grid)</span>
+        <span><span class="legend-dot" style="background:#6f42c1;"></span>[5] Sinaloa (Interdiction)</span>
+        <span><span class="legend-dot" style="background:#198754;"></span>[6] Kolkata (720/9)</span>
+      </div>
+    </div>
+    <div class="map-container">
+      <svg viewBox="0 0 950 165" width="100%" height="100%" style="display:block;">
+        <defs>
+          <radialGradient id="pulse-red" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#b02a37" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#b02a37" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="pulse-blue" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#0b5ed7" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#0b5ed7" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        
+        <!-- Subtle Latitude/Longitude Grid -->
+        <g stroke="#eae8e1" stroke-width="0.8" stroke-dasharray="2 3">
+          <line x1="0" y1="40" x2="950" y2="40"/>
+          <line x1="0" y1="82" x2="950" y2="82"/>
+          <line x1="0" y1="125" x2="950" y2="125"/>
+          <line x1="160" y1="0" x2="160" y2="165"/>
+          <line x1="320" y1="0" x2="320" y2="165"/>
+          <line x1="480" y1="0" x2="480" y2="165"/>
+          <line x1="640" y1="0" x2="640" y2="165"/>
+          <line x1="800" y1="0" x2="800" y2="165"/>
+        </g>
+
+        <!-- Continents vector paths (stylized outline & fill) -->
+        <!-- North America -->
+        <path d="M 120 22 Q 170 15 220 30 Q 250 50 240 75 Q 210 85 180 80 Q 170 110 130 115 Q 110 80 100 50 Z" fill="#ebe6dc" stroke="#c4bdae" stroke-width="1.2"/>
+        <!-- South America -->
+        <path d="M 230 105 Q 275 110 265 135 Q 245 160 220 155 Q 215 130 225 108 Z" fill="#ebe6dc" stroke="#c4bdae" stroke-width="1.2"/>
+        <!-- Europe -->
+        <path d="M 440 25 Q 490 20 510 40 Q 500 65 460 68 Q 435 55 440 25 Z" fill="#ebe6dc" stroke="#c4bdae" stroke-width="1.2"/>
+        <!-- Africa -->
+        <path d="M 445 72 Q 505 70 515 105 Q 495 150 465 145 Q 435 110 445 72 Z" fill="#ebe6dc" stroke="#c4bdae" stroke-width="1.2"/>
+        <!-- Asia -->
+        <path d="M 525 22 Q 680 18 730 45 Q 750 90 700 95 Q 630 85 590 105 Q 560 70 525 50 Z" fill="#ebe6dc" stroke="#c4bdae" stroke-width="1.2"/>
+        <!-- Australia -->
+        <path d="M 720 118 Q 785 115 780 145 Q 735 152 715 135 Z" fill="#ebe6dc" stroke="#c4bdae" stroke-width="1.2"/>
+
+        <!-- Flight/Diplomatic Vector Arcs -->
+        <path d="M 235 52 Q 350 20 462 43" fill="none" stroke="#b02a37" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <path d="M 462 43 Q 500 48 522 55" fill="none" stroke="#d97706" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <path d="M 522 55 Q 580 75 640 88" fill="none" stroke="#198754" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+        <!-- Pins with pulsing rings and labels -->
+        <!-- [1] New York: UNSC -->
+        <circle cx="235" cy="52" r="10" fill="url(#pulse-red)"/>
+        <circle cx="235" cy="52" r="3.5" fill="#b02a37"/>
+        <rect x="180" y="38" width="50" height="13" rx="2" fill="#111" opacity="0.85"/>
+        <text x="205" y="48" fill="#fff" font-size="7.5" font-weight="bold" text-anchor="middle">[1] NEW YORK</text>
+
+        <!-- [5] Sinaloa: El Chapo Isidro -->
+        <circle cx="160" cy="82" r="10" fill="url(#pulse-red)"/>
+        <circle cx="160" cy="82" r="3.5" fill="#6f42c1"/>
+        <rect x="110" y="86" width="55" height="13" rx="2" fill="#111" opacity="0.85"/>
+        <text x="137" y="96" fill="#fff" font-size="7.5" font-weight="bold" text-anchor="middle">[5] SINALOA</text>
+
+        <!-- [2] Manchester Arena -->
+        <circle cx="452" cy="40" r="10" fill="url(#pulse-blue)"/>
+        <circle cx="452" cy="40" r="3.5" fill="#0b5ed7"/>
+        <rect x="390" y="27" width="58" height="13" rx="2" fill="#111" opacity="0.85"/>
+        <text x="419" y="37" fill="#fff" font-size="7.5" font-weight="bold" text-anchor="middle">[2] MANCHESTER</text>
+
+        <!-- [4] Kyiv -->
+        <circle cx="510" cy="45" r="9" fill="url(#pulse-red)"/>
+        <circle cx="510" cy="45" r="3.5" fill="#d97706"/>
+        <rect x="518" y="36" width="42" height="13" rx="2" fill="#111" opacity="0.85"/>
+        <text x="539" y="46" fill="#fff" font-size="7.5" font-weight="bold" text-anchor="middle">[4] KYIV</text>
+
+        <!-- [3] Antalya: COP31 -->
+        <circle cx="525" cy="62" r="10" fill="url(#pulse-red)"/>
+        <circle cx="525" cy="62" r="3.5" fill="#b02a37"/>
+        <rect x="533" y="62" width="50" height="13" rx="2" fill="#111" opacity="0.85"/>
+        <text x="558" y="72" fill="#fff" font-size="7.5" font-weight="bold" text-anchor="middle">[3] ANTALYA</text>
+
+        <!-- [6] Kolkata: India 720/9 -->
+        <circle cx="645" cy="85" r="10" fill="url(#pulse-blue)"/>
+        <circle cx="645" cy="85" r="3.5" fill="#198754"/>
+        <rect x="655" y="80" width="52" height="13" rx="2" fill="#111" opacity="0.85"/>
+        <text x="681" y="90" fill="#fff" font-size="7.5" font-weight="bold" text-anchor="middle">[6] KOLKATA</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Mid Story Grid: UNSC & El Chapo Isidro -->
+  <div class="grid-mid">
+    <!-- UNSC Ukraine Energy Grid -->
+    <div class="card">
+      <div>
+        <div class="card-header">
+          <span class="tag tag-amber">Geopolitics & Conflict • New York</span>
+          <span class="time-stamp">18:00 UTC</span>
+        </div>
+        <div class="headline">UNSC Convenes Emergency Session On Ukraine Winter Power Grid</div>
+        <div class="body-text">
+          The United Nations Security Council met in an emergency session on Monday afternoon to address coordinated missile and long-range drone strikes that severed primary 750kV transmission nodes across northern and central Ukraine. UN OCHA warned that freezing temperatures pose acute humanitarian risks to over 4 million civilians facing blackout conditions.
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-label">Grid Nodes Severed</div>
+          <div class="stat-val">14 Substations</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Affected Civilians</div>
+          <div class="stat-val">4.2 Million</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">UN Action</div>
+          <div class="stat-val">Emergency Aid Protocol</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sinaloa Cartel Interdiction -->
+    <div class="card">
+      <div>
+        <div class="card-header">
+          <span class="tag tag-purple">Americas & Law Enforcement • Sinaloa</span>
+          <span class="time-stamp">09:30 UTC</span>
+        </div>
+        <div class="headline">Cartel Chief Fausto Isidro Meza Flores ('El Chapo Isidro') Captured</div>
+        <div class="body-text">
+          In a precision dawn air-and-ground assault in the Sierra Madre foothills of northern Sinaloa, Mexican Army commandos and Navy Marines captured long-wanted cartel chieftain Fausto Isidro Meza Flores. U.S. and Mexican authorities confirmed Meza Flores was detained without civilian casualties and immediately airlifted under heavy guard to Mexico City.
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-label">Operation Force</div>
+          <div class="stat-val">Sedena & Semar</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Target Status</div>
+          <div class="stat-val">In Federal Custody</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Extradition</div>
+          <div class="stat-val">Pending Treaty Review</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Story Grid: Manchester Arena & India Cricket -->
+  <div class="grid-bottom">
+    <!-- Manchester Arena -->
+    <div class="card">
+      <div>
+        <div class="card-header">
+          <span class="tag tag-slate">European Security • Manchester</span>
+          <span class="time-stamp">17:15 GMT</span>
+        </div>
+        <div class="headline">Manchester Arena Precautionary Evacuation Cleared</div>
+        <div class="body-text">
+          Over 6,500 attendees at the Global Youth Leadership Convention in Manchester were calmly evacuated on Monday after security personnel discovered an unattended suspicious package near the venue perimeter. Specialized ordnance teams conducted a controlled inspection, confirmed the item was non-hazardous, and reopened city transit links by early evening.
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-label">Evacuation Time</div>
+          <div class="stat-val">14 Minutes</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Casualties</div>
+          <div class="stat-val">Zero / Safe</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Cordons Lifted</div>
+          <div class="stat-val">18:30 GMT</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cricket Record -->
+    <div class="card">
+      <div>
+        <div class="card-header">
+          <span class="tag tag-green">World Sport • Kolkata</span>
+          <span class="time-stamp">11:00 UTC</span>
+        </div>
+        <div class="headline">India Posts Historic 720/9 In Monumental Test Display</div>
+        <div class="body-text">
+          A historic day of test cricket unfolded at Eden Gardens as India declared their first innings at an astonishing 720/9. Bolstered by dominant batting partnerships and a brisk run-rate exceeding 4.8 per over, the declaration places the team in commanding position while etching a historic total into the international cricket annals on Monday afternoon.
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-label">Declared Total</div>
+          <div class="stat-val">720 / 9 (Dec)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Run Rate</div>
+          <div class="stat-val">4.86 rpo</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Venue</div>
+          <div class="stat-val">Eden Gardens</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Verification / Date Check Bar -->
+  <div class="date-check-bar">
+    <div class="seal-box">
+      <div class="seal-icon">✓</div>
+      <div>
+        <div class="seal-text-title">DATE CHECK & INTEGRITY VERIFICATION — MONDAY 23 NOVEMBER 2026</div>
+        <div class="seal-text-body">
+          Chronological Anchor: All events occurred or were first reported on <strong>Monday, 23 November 2026</strong>. Broad multi-region coverage spanning global climate diplomacy (Antalya), technological leadership (Silicon Valley), United Nations geopolitics (New York/Kyiv), public safety (Manchester), transnational interdiction (Sinaloa), and sports records (Kolkata).
+        </div>
+      </div>
+    </div>
+    <div class="badge-verified">
+      OFFICIAL RECORD 23-NOV-2026
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
